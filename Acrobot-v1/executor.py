@@ -4,7 +4,8 @@ import numpy as np
 from tensorflow import keras
 
 env = gym.make('Acrobot-v1')
-engine = keras.models.load_model('Acrobot-v1-3rd-try.h5')
+# engine = keras.models.load_model('Acrobot-v1-6th-try.h5')
+engine = keras.models.load_model('working_models/Acrobot-v1-solved.h5')
 
 observation = env.reset()
 done = False
@@ -14,7 +15,6 @@ for i in range(2000):
     env.render()
     pred = engine.predict(observation.reshape(1,6))
     action = np.argmax(pred)
-    print(pred)
     observation, reward, done, info = env.step(action)
 
     print("STEP:", steps)

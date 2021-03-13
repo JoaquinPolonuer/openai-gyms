@@ -6,13 +6,13 @@ from tensorflow.keras.layers import Dense, Dropout
 
 def gather_data(env):
 
-    sim_steps = 3000
-    num_sims = 5000
-
+    sim_steps = 500
+    num_sims = 10000
+    num_successful_sims = 0
     trainX, trainY = [],[]
 
-    for num_sim in range(num_sims):
-
+    # for num_sim in range(num_sims):
+    while num_successful_sims < num_sims:
         observation = env.reset()
         training_sampleX, training_sampleY = [],[]
         success = False
@@ -32,9 +32,10 @@ def gather_data(env):
                 trainX += training_sampleX
                 trainY += training_sampleY
                 success = True
+                num_successful_sims += 1
                 break
         
-        print(num_sim, "/", num_sims, "SUCCESS:",success, "IN STEP:", step)
+        print(num_successful_sims, "/", num_sims, "SUCCESS:",success, "IN STEP:", step)
 
     trainX, trainY = np.array(trainX), np.array(trainY)
 
@@ -76,9 +77,9 @@ def train():
     trainingX, trainingY = gather_data(env)
 
     model = create_model()
-    model.fit(trainingX, trainingY, epochs = 50)
+    model.fit(trainingX, trainingY, epochs = 30)
     
-    model.save("Acrobot-v1-4th-try.h5")
+    model.save("Acrobot-v1-5th-try.h5")
     
     return model
 
