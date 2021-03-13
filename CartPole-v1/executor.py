@@ -2,7 +2,7 @@ from tensorflow import keras
 import numpy as np
 import gym
 
-engine = keras.models.load_model('CartPole-v1.h5')
+engine = keras.models.load_model('../models/CartPole-v1/CartPole-v1.h5')
 
 done = False
 
